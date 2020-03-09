@@ -3527,12 +3527,13 @@ const jsonOpt = (val) => {
         throw new Error(`Unexpected JSON value: ${val}`);
     }
 };
+const refOpt = (val) => val.replace(/^refs\/heads\//, '');
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const context = github.context;
             const token = core.getInput("token", { required: true });
-            const ref = core.getInput("ref", { required: false }) || context.ref;
+            const ref = refOpt(core.getInput("ref", { required: false }) || context.ref);
             const task = core.getInput("task", { required: false }) || "deploy";
             const auto_merge = boolOpt(core.getInput("auto_merge", { required: false }) || "true");
             const payload = core.getInput("payload", { required: false }) || "";

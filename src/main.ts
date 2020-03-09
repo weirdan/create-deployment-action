@@ -10,6 +10,7 @@ const boolOpt = (val: string): boolean => {
   }
   throw new Error(`Unexpected boolean value: ${val}`)
 }
+
 const jsonOpt = (val: string): any => {
   try {
     return JSON.parse(val);
@@ -18,12 +19,14 @@ const jsonOpt = (val: string): any => {
   }
 }
 
+const refOpt = (val: string): string => val.replace(/^refs\/heads\//,'')
+
 async function run(): Promise<void> {
   try {
     const context = github.context
 
     const token = core.getInput("token", {required: true})
-    const ref = core.getInput("ref", {required: false}) || context.ref
+    const ref = refOpt(core.getInput("ref", {required: false}) || context.ref)
     const task = core.getInput("task", {required: false}) || "deploy"
     const auto_merge = boolOpt(core.getInput("auto_merge", {required: false}) || "true")
     const payload = core.getInput("payload", {required: false}) || ""
