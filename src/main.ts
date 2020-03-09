@@ -33,9 +33,10 @@ async function run(): Promise<void> {
     const production_environment = boolOpt(core.getInput("production_environment", {required: false}) || "false")
     const required_contexts = jsonOpt(core.getInput("required_contexts", {required:false}) || "[]")
 
+
     const client = new github.GitHub(token, {previews: ["flash", "ant-man"]})
 
-    const deployment = await client.repos.createDeployment({
+    const request = {
       owner: context.repo.owner,
       repo: context.repo.repo,
       ref,
@@ -45,9 +46,15 @@ async function run(): Promise<void> {
       environment,
       description,
       transient_environment,
-      production_environment
-    })
+      production_environment,
+      required_contexts
+    }
 
+    core.info("Creating deployment...")
+    core.debug(`Deployment params: ${JSON.stringify(request)}`)
+
+    const deployment = await client.repos.createDeployment(request)
+    core.info(`Successfully created deployment: ${deployment.data.id.toString()}`)
     core.setOutput("deployment_id", deployment.data.id.toString())
 
   } catch (error) {
