@@ -22,5 +22,5 @@ jobs:
       with: 
         token: ${{github.token}}
         required_contexts: "[]"
-        ref: ${{github.sha}}
+        ref: ${{github.ref}}
         auto_merge: false
