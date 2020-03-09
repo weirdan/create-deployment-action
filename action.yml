@@ -39,6 +39,10 @@ inputs:
     required: false
     default: "false" 
     description: "Specifies if the given environment is one that end-users directly interact with. Default: `true` when environment is production and `false` otherwise."
+  required_contexts:
+    required: false
+    default: "[]"
+    description: The status contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.
 outputs:
   deployment_id:
     description: Identifier of the created deployment

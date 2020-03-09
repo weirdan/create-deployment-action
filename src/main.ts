@@ -10,6 +10,13 @@ const boolOpt = (val: string): boolean => {
   }
   throw new Error(`Unexpected boolean value: ${val}`)
 }
+const jsonOpt = (val: string): any => {
+  try {
+    return JSON.parse(val);
+  } catch {
+    throw new Error(`Unexpected JSON value: ${val}`)
+  }
+}
 
 async function run(): Promise<void> {
   try {
@@ -24,6 +31,7 @@ async function run(): Promise<void> {
     const description = core.getInput("description", {required: false}) || ""
     const transient_environment = boolOpt(core.getInput("transient_environment", {required: false}) || "false")
     const production_environment = boolOpt(core.getInput("production_environment", {required: false}) || "false")
+    const required_contexts = jsonOpt(core.getInput("required_contexts", {required:false}) || "[]")
 
     const client = new github.GitHub(token, {previews: ["flash", "ant-man"]})
 
