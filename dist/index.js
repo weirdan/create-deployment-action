@@ -3519,6 +3519,14 @@ const boolOpt = (val) => {
     }
     throw new Error(`Unexpected boolean value: ${val}`);
 };
+const jsonOpt = (val) => {
+    try {
+        return JSON.parse(val);
+    }
+    catch (_a) {
+        throw new Error(`Unexpected JSON value: ${val}`);
+    }
+};
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -3532,6 +3540,7 @@ function run() {
             const description = core.getInput("description", { required: false }) || "";
             const transient_environment = boolOpt(core.getInput("transient_environment", { required: false }) || "false");
             const production_environment = boolOpt(core.getInput("production_environment", { required: false }) || "false");
+            const required_contexts = jsonOpt(core.getInput("required_contexts", { required: false }) || "[]");
             const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
             const deployment = yield client.repos.createDeployment({
                 owner: context.repo.owner,
