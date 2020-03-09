@@ -22,3 +22,4 @@ jobs:
       with: 
         token: ${{github.token}}
         required_contexts: "[]"
+        ref: ${{github.sha}}
