@@ -79,8 +79,9 @@ async function run(): Promise<void> {
     )
     core.setOutput('deployment_id', deployment.data.id.toString())
   } catch (error) {
-    core.error(error)
-    core.setFailed(error.message)
+    let e: Error = error as Error;
+    core.error(e)
+    core.setFailed(e.message)
   }
 }
 
