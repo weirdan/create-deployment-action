@@ -79,7 +79,7 @@ async function run(): Promise<void> {
     )
     core.setOutput('deployment_id', deployment.data.id.toString())
   } catch (error) {
-    const e: Error = error as Error;
+    const e: Error = error as Error
     core.error(e)
     core.setFailed(e.message)
   }
