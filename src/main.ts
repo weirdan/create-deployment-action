@@ -55,19 +55,18 @@ async function run(): Promise<void> {
 
     const client = new github.GitHub(token, {previews: ['flash', 'ant-man']})
 
-    // eslint-
     const request = {
       owner: context.repo.owner,
       repo: context.repo.repo,
       ref,
       task,
-      auto_merge: autoMerge, // eslint-disable-line @typescript-eslint/camelcase
+      auto_merge: autoMerge,
       payload,
       environment,
       description,
-      transient_environment: transientEnvironment, // eslint-disable-line @typescript-eslint/camelcase
-      production_environment: productionEnvironment, // eslint-disable-line @typescript-eslint/camelcase
-      required_contexts: requiredContexts // eslint-disable-line @typescript-eslint/camelcase
+      transient_environment: transientEnvironment,
+      production_environment: productionEnvironment,
+      required_contexts: requiredContexts
     }
 
     core.info('Creating deployment...')
