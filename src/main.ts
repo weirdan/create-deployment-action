@@ -53,7 +53,7 @@ async function run(): Promise<void> {
       core.getInput('required_contexts', {required: false}) || '[]'
     )
 
-    const client = new github.GitHub(token, {previews: ['flash', 'ant-man']})
+    const client = github.getOctokit(token, {previews: ['flash', 'ant-man']})
 
     const request = {
       owner: context.repo.owner,
@@ -73,10 +73,15 @@ async function run(): Promise<void> {
     core.debug(`Deployment params: ${JSON.stringify(request)}`)
 
     const deployment = await client.repos.createDeployment(request)
-    core.info(
-      `Successfully created deployment: ${deployment.data.id.toString()}`
-    )
-    core.setOutput('deployment_id', deployment.data.id.toString())
+    if ('message' in deployment.data) {
+      core.error(`Failed to create deployment: ${deployment.data.message}`)
+      core.setFailed(deployment.data.message)
+    } else {
+      core.info(
+        `Successfully created deployment: ${deployment.data.id.toString()}`
+      )
+      core.setOutput('deployment_id', deployment.data.id.toString())
+    }
   } catch (error) {
     const e: Error = error as Error
     core.error(e)
