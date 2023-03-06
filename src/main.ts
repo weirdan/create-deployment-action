@@ -72,10 +72,10 @@ async function run(): Promise<void> {
     core.info('Creating deployment...')
     core.debug(`Deployment params: ${JSON.stringify(request)}`)
 
-    const deployment = await client.repos.createDeployment(request)
-    if ('message' in deployment.data) {
+    const deployment = await client.rest.repos.createDeployment(request)
+    if (deployment.status !== 201) {
       core.error(`Failed to create deployment: ${deployment.data.message}`)
-      core.setFailed(deployment.data.message)
+      core.setFailed(deployment.data.message ?? 'Failed')
     } else {
       core.info(
         `Successfully created deployment: ${deployment.data.id.toString()}`
