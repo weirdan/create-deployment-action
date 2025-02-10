@@ -57,7 +57,7 @@ export default [{
             allowExpressions: true,
         }],
 
-        "@typescript-eslint/func-call-spacing": ["error", "never"],
+        "@/func-call-spacing": ["error", "never"],
         "@typescript-eslint/no-array-constructor": "error",
         "@typescript-eslint/no-empty-interface": "error",
         "@typescript-eslint/no-explicit-any": "error",
@@ -79,8 +79,7 @@ export default [{
         "@typescript-eslint/require-array-sort-compare": "error",
         "@typescript-eslint/restrict-plus-operands": "error",
         semi: "off",
-        "@typescript-eslint/semi": ["error", "never"],
-        "@typescript-eslint/type-annotation-spacing": "error",
+        "@/semi": ["error", "never"],
         "@typescript-eslint/unbound-method": "error",
     },
 }];
