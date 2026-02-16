@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import * as github from '@actions/github'
+import {getOctokit, context} from '@actions/github'
 
 const boolOpt = (val: string): boolean => {
   if (val === 'true') {
@@ -31,8 +31,6 @@ const refOpt = (val: string): string => val.replace(/^refs\/heads\//, '')
 
 async function run(): Promise<void> {
   try {
-    const context = github.context
-
     const token = core.getInput('token', {required: true})
     const ref = refOpt(core.getInput('ref', {required: false}) || context.ref)
     const task = core.getInput('task', {required: false}) || 'deploy'
@@ -53,7 +51,7 @@ async function run(): Promise<void> {
       core.getInput('required_contexts', {required: false}) || '[]'
     )
 
-    const client = github.getOctokit(token, {previews: ['flash', 'ant-man']})
+    const client = getOctokit(token, {previews: ['flash', 'ant-man']})
 
     const request = {
       owner: context.repo.owner,
