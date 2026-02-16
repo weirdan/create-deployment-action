@@ -4,6 +4,10 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "noImplicitAny": true,
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "target": "ES2020",
+    "verbatimModuleSyntax": true
   },
   "exclude": ["node_modules", "**/*.test.ts"]
 }
