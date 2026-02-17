@@ -6,6 +6,7 @@ import tsParser from "@typescript-eslint/parser";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
+import stylistic from "@stylistic/eslint-plugin"
 import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +23,7 @@ export default defineConfig([{
     plugins: {
         jest,
         "@typescript-eslint": typescriptEslint,
+        "@stylistic": stylistic,
     },
 
     languageOptions: {
@@ -58,7 +60,7 @@ export default defineConfig([{
             allowExpressions: true,
         }],
 
-        "@typescript-eslint/func-call-spacing": ["error", "never"],
+        "func-call-spacing": ["error", "never"],
         "@typescript-eslint/no-array-constructor": "error",
         "@typescript-eslint/no-empty-interface": "error",
         "@typescript-eslint/no-explicit-any": "error",
@@ -79,9 +81,8 @@ export default defineConfig([{
         "@typescript-eslint/promise-function-async": "error",
         "@typescript-eslint/require-array-sort-compare": "error",
         "@typescript-eslint/restrict-plus-operands": "error",
-        semi: "off",
-        "@typescript-eslint/semi": ["error", "never"],
-        "@typescript-eslint/type-annotation-spacing": "error",
+        "semi": ["error", "never"],
+        "@stylistic/type-annotation-spacing": "error",
         "@typescript-eslint/unbound-method": "error",
     },
 }]);
